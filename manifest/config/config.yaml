@@ -1,0 +1,52 @@
+# HTTP Server.
+server:
+  address: ":8000"
+  dumpRouterMap: true
+  routeOverWrite: true
+  accessLogEnabled: true
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+
+# Global logging.
+logger:
+  level: "all"
+  stdout: true
+
+# Database.
+database:
+  logger:
+    level: "all"
+    stdout: true
+
+  default:
+    link: "mysql:root:123456@tcp(192.168.200.130:3306)/gf_study"
+    debug: true
+
+# Redis配置
+redis:
+  default:
+    # 以下字段请按需填写你的 Redis 连接信息
+    address: "192.168.200.130:6379"     # 例如: "127.0.0.1:6379"
+    db: 0              # 例如: 0
+    maxIdle: 10
+    maxActive: 100
+    idleTimeout: 1800            # 单位：秒
+
+# GToken配置
+gtoken:
+  cacheMode: 2                 # 缓存模式 1 gcache 2 redis
+  cacheKey: "GFToken:"         # 缓存key前缀
+  timeout: 3600000                # 超时时间（ms）
+  maxRefresh: 86400000            # 最大刷新时间（ms）
+  tokenDelimiter: "_"          # token分隔符
+  encryptKey: "12345678901234567890123456789012"  # 加密密钥，必须32位
+  authFailMsg: "请求错误或登录超时"               # 认证失败消息
+  multiLogin: true             # 允许多点登录
+
+# SMTP配置
+smtp:
+  host: "smtp.163.com"     # SMTP服务器地址
+  port: 465                     # SMTP端口
+  username: "15726952193@163.com"    # SMTP用户名
+  password: "ECmg432KxdsNCGQX"    # SMTP密码
+  from: "15726952193@163.com"  # 发件人邮箱地址

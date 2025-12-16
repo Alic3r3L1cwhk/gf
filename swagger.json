@@ -1,0 +1,1379 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "街边小吃摊点餐系统 - 管理端 API",
+        "version": "1.1.0",
+        "description": "支持员工邮箱注册/登录、JWT 认证、订单管理的完整后端接口"
+    },
+    "host": "http://localhost:8000",
+    "basePath": "/api/v1",
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Token: Bearer <token>"
+        }
+    },
+    "paths": {
+        "/dishes": {
+            "get": {
+                "summary": "获取所有菜品列表",
+                "tags": [
+                    "Dish"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "菜品列表",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Dish"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "新增菜品",
+                "tags": [
+                    "Dish"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "dish",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DishCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "创建成功",
+                        "schema": {
+                            "$ref": "#/definitions/Dish"
+                        }
+                    }
+                }
+            }
+        },
+        "/dishes/{id}": {
+            "get": {
+                "summary": "根据ID获取菜品详情",
+                "tags": [
+                    "Dish"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "菜品详情",
+                        "schema": {
+                            "$ref": "#/definitions/Dish"
+                        }
+                    },
+                    "404": {
+                        "description": "菜品未找到"
+                    }
+                }
+            },
+            "put": {
+                "summary": "更新菜品信息",
+                "tags": [
+                    "Dish"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "dish",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DishUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "schema": {
+                            "$ref": "#/definitions/Dish"
+                        }
+                    },
+                    "404": {
+                        "description": "菜品未找到"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "删除菜品",
+                "tags": [
+                    "Dish"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "删除成功"
+                    },
+                    "404": {
+                        "description": "菜品未找到"
+                    }
+                }
+            }
+        },
+        "/employees": {
+            "get": {
+                "summary": "获取所有员工列表",
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "员工列表",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Employee"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "新增员工",
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "employee",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/EmployeeCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "创建成功",
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{id}": {
+            "get": {
+                "summary": "根据ID获取员工详情",
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "员工详情",
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    },
+                    "404": {
+                        "description": "员工未找到"
+                    }
+                }
+            },
+            "put": {
+                "summary": "更新员工信息",
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "employee",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/EmployeeUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    },
+                    "404": {
+                        "description": "员工未找到"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "删除员工",
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "删除成功"
+                    },
+                    "404": {
+                        "description": "员工未找到"
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "summary": "获取所有订单列表",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单列表",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Order"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "创建新订单",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "创建成功",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{id}": {
+            "get": {
+                "summary": "根据ID获取订单详情",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单详情",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            },
+            "put": {
+                "summary": "更新订单信息",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "删除订单",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "删除成功"
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            }
+        },
+        "/orders/details/{orderId}": {
+            "get": {
+                "summary": "根据订单ID获取订单明细列表",
+                "tags": [
+                    "OrderDetail"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单明细列表",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/OrderDetail"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            }
+        },
+        "/orders/details/create": {
+            "post": {
+                "summary": "新增订单明细",
+                "tags": [
+                    "OrderDetail"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "orderDetail",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "schema": {
+                            "$ref": "#/definitions/OrderDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误"
+                    }
+                }
+            }
+        },
+        "/orders/actions/accept/{id}": {
+            "post": {
+                "summary": "接单",
+                "description": "将订单状态更新为 '已接单' (status=3)",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "接单成功",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "400": {
+                        "description": "订单状态不允许接单"
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            }
+        },
+        "/orders/actions/complete/{id}": {
+            "post": {
+                "summary": "完成订单",
+                "description": "将订单状态更新为 '已完成' (status=4)，并设置 checkout_time",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单完成成功",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "400": {
+                        "description": "订单状态不允许完成"
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            }
+        },
+        "/orders/actions/cancel/{id}": {
+            "post": {
+                "summary": "取消订单",
+                "description": "将订单状态更新为 '已取消' (status=5)，需提供取消原因",
+                "tags": [
+                    "Order"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "reason",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "cancel_reason": {
+                                    "type": "string",
+                                    "description": "取消订单的原因"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "订单取消成功",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "400": {
+                        "description": "订单状态不允许取消"
+                    },
+                    "404": {
+                        "description": "订单未找到"
+                    }
+                }
+            }
+        },
+        "/auth/register/send-code": {
+            "post": {
+                "summary": "发送注册验证码",
+                "description": "向指定邮箱发送 4 位数字注册验证码，有效期 5 分钟",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                }
+                            },
+                            "required": [
+                                "email"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "验证码已发送",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "验证码已发送至您的邮箱"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "邮箱格式无效"
+                    },
+                    "429": {
+                        "description": "请求过于频繁"
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "summary": "员工注册",
+                "description": "使用邮箱、密码和验证码完成注册",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "registerInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "minLength": 6
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "pattern": "^[0-9]{4}$"
+                                }
+                            },
+                            "required": [
+                                "email",
+                                "password",
+                                "code"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "注册成功",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "format": "int64"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "验证码错误或已过期"
+                    },
+                    "409": {
+                        "description": "该邮箱已存在"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "summary": "员工登录",
+                "description": "使用邮箱和密码登录，返回 JWT Token",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "credentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "email",
+                                "password"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "登录成功",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string"
+                                },
+                                "expires_in": {
+                                    "type": "integer",
+                                    "example": 3600
+                                },
+                                "user": {
+                                    "$ref": "#/definitions/Employee"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "邮箱或密码错误"
+                    }
+                }
+            }
+        },
+        "/auth/password/reset/send-code": {
+            "post": {
+                "summary": "发送密码重置验证码",
+                "description": "向已注册邮箱发送 4 位重置验证码",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                }
+                            },
+                            "required": [
+                                "email"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "验证码已发送",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "密码重置验证码已发送"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "邮箱格式无效"
+                    },
+                    "404": {
+                        "description": "邮箱未注册"
+                    },
+                    "429": {
+                        "description": "请求过于频繁"
+                    }
+                }
+            }
+        },
+        "/auth/password/reset": {
+            "post": {
+                "summary": "重置密码",
+                "description": "使用邮箱、新密码和验证码重置密码",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "name": "resetInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                },
+                                "new_password": {
+                                    "type": "string",
+                                    "minLength": 6
+                                },
+                                "code": {
+                                    "type": "string",
+                                    "pattern": "^[0-9]{4}$"
+                                }
+                            },
+                            "required": [
+                                "email",
+                                "new_password",
+                                "code"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "密码重置成功",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "密码已成功重置"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "验证码错误或已过期"
+                    },
+                    "404": {
+                        "description": "邮箱未注册"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Dish": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "create_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "update_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "create_user": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "update_user": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "DishCreate": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        0,
+                        1
+                    ],
+                    "default": 1
+                },
+                "create_user": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "DishUpdate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                },
+                "update_user": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "Employee": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "create_time": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "EmployeeCreate": {
+            "type": "object",
+            "required": [
+                "name",
+                "username",
+                "password",
+                "phone"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "EmployeeUpdate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                }
+            }
+        },
+        "Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                    ]
+                },
+                "user_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "order_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "checkout_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "pay_method": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2
+                    ]
+                },
+                "pay_status": {
+                    "type": "integer",
+                    "format": "int8",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ]
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                },
+                "cancel_reason": {
+                    "type": "string"
+                },
+                "cancel_time": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "OrderCreate": {
+            "type": "object",
+            "required": [
+                "user_id",
+                "order_time",
+                "pay_method",
+                "amount"
+            ],
+            "properties": {
+                "number": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                    ],
+                    "default": 1
+                },
+                "user_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "order_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "checkout_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "pay_method": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2
+                    ]
+                },
+                "pay_status": {
+                    "type": "integer",
+                    "format": "int8",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "default": 0
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "OrderUpdate": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6
+                    ]
+                },
+                "checkout_time": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "pay_method": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2
+                    ]
+                },
+                "pay_status": {
+                    "type": "integer",
+                    "format": "int8",
+                    "enum": [
+                        0,
+                        1,
+                        2
+                    ]
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "decimal"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                },
+                "cancel_reason": {
+                    "type": "string"
+                },
+                "cancel_time": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "OrderDetail": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "dish_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "number": {
+                    "type": "integer",
+                    "default": 1
+                },
+                "amount": {
+                    "type": "number",
+                    "format": "decimal"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Dish",
+            "description": "菜品管理"
+        },
+        {
+            "name": "Employee",
+            "description": "员工管理"
+        },
+        {
+            "name": "Order",
+            "description": "订单管理"
+        },
+        {
+            "name": "OrderDetail",
+            "description": "订单明细"
+        },
+        {
+            "name": "Auth",
+            "description": "认证：注册、登录、密码重置"
+        }
+    ]
+}
